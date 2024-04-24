@@ -1,7 +1,7 @@
 const connectionMySQL = require("../connectionMySQL");
 
-exports.getRecords = async (req, res) => {
-  let sql = "SELECT * FROM records";
+exports.getAllTracks = async (req, res) => {
+  let sql = "SELECT * FROM track";
 
   try {
     await connectionMySQL.query(sql, (error, results, fields) => {
