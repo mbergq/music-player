@@ -12,16 +12,14 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use(express.static("public"));
 
-// const recordRoutes = require("./routes/recordRoutes");
+const musicRoutes = require("./routes/musicRoutes");
 
 const favoritesRoutes = require("./routes/favoritesRoutes");
 
-// app.use(recordRoutes);
+app.use(musicRoutes);
 app.use(favoritesRoutes);
 
-const connectionMongoDB = require('./connectionMongoDB.js');
+const connectionMongoDB = require("./connectionMongoDB.js");
 connectionMongoDB();
-
-
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
