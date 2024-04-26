@@ -1,50 +1,71 @@
-<script setup></script>
+<script setup>
+const { data: playlists, refresh } = await useFetch(
+  "http://localhost:3001/api/playlists"
+);
+
+// Click on icon to navigate to playlist.vue
+// In playlist.vue you type the name of the playlist
+</script>
 
 <template>
   <!-- använd invisble för att dölja menyn -->
-  <div class="container h-full flex flex-col bg-primary">
-    <h1 class="text-4xl text-red-400 uppercase p-6">music player</h1>
-    <ul class="menu text-xl">
+  <div class="container h-full flex flex-col bg-primary pl-6 border">
+    <h1 class="text-2xl text-red-400 uppercase pt-6">::music player::</h1>
+    <ul class="menu text-xl mt-8">
       <nuxt-link
         to="/"
-        class="text-white pl-6 mb-5 hover:text-gray-300 active:text-gray-500"
+        class="text-white mb-5 hover:text-gray-300 active:text-gray-500"
         >All tracks</nuxt-link
       >
       <nuxt-link
         to="/favorites"
-        class="text-white pl-6 hover:text-gray-300 active:text-gray-500"
+        class="text-white mb-5 hover:text-gray-300 active:text-gray-500"
         >Favorites</nuxt-link
+      >
+      <nuxt-link
+        to="/playlist"
+        class="text-white hover:text-gray-300 active:text-gray-500"
+        >All playlists</nuxt-link
       >
     </ul>
 
     <!-- <div class="divider divider-info"></div> -->
-    <div class="container pl-6 flex flex-col h-full justify-center">
-      <div class="flex flex-row items-center gap-8">
+    <div class="container flex flex-col h-full justify-center">
+      <button class="btn w-20" @click="refresh">Refresh</button>
+
+      <div class="flex flex-row items-center gap-6">
         <!-- <div
           class="container flex flex-row w-full items-center justify-between pr-8"
-        > -->
+          > -->
         <h1 class="text-white text-2xl">My playlists</h1>
         <div class="menu">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="2em"
-            height="2em"
-            viewBox="0 0 512 512"
-            class="hover:opacity-50 transform hover:scale-110"
-          >
-            <path
-              fill="none"
-              stroke="white"
-              stroke-linecap="square"
-              stroke-linejoin="round"
-              stroke-width="32"
-              d="M256 112v288m144-144H112"
-            ></path>
-          </svg>
+          <nuxt-link to="/newPlaylist">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="2em"
+              height="2em"
+              viewBox="0 0 512 512"
+              class="hover:opacity-50 transform hover:scale-110"
+            >
+              <path
+                fill="none"
+                stroke="white"
+                stroke-linecap="square"
+                stroke-linejoin="round"
+                stroke-width="32"
+                d="M256 112v288m144-144H112"
+              ></path>
+            </svg>
+          </nuxt-link>
         </div>
       </div>
-      <ul class="menu w-56 text-zinc-500 p-0">
-        <li><a>Playlist 1</a></li>
+      <ul class="menu w-fit text-zinc-300 p-0">
+        <li v-for="(playlist, index) in playlists" :key="index">
+          <nuxt-link
+            class="pl-2 capitalize hover:text-white active:text-white hover:scale-110 cursor-pointer p-0"
+            >{{ playlist.playlistName }}
+          </nuxt-link>
+        </li>
       </ul>
     </div>
   </div>

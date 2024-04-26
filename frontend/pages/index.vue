@@ -1,9 +1,13 @@
 <script setup></script>
 
 <template>
-  <div class="grid grid-cols-1 grid-rows-2 gap-4 h-full">
-    <DisplayCover />
-    <DisplayTracks />
+  <div class="flex flex-col h-full">
+    <div class="h-2/5">
+      <DisplayCover />
+    </div>
+    <div class="h-3/5">
+      <DisplayTracks />
+    </div>
   </div>
 </template>
 
