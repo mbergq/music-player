@@ -15,6 +15,11 @@
         class="text-white pl-6 hover:text-gray-300 active:text-gray-500"
         >Favorites</nuxt-link
       >
+      <nuxt-link
+        to="/albums"
+        class="text-white pl-6 hover:text-gray-300 active:text-gray-500"
+        >Albums</nuxt-link
+      >
     </ul>
 
     <!-- <div class="divider divider-info"></div> -->
