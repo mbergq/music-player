@@ -1,5 +1,4 @@
-const favoritesModel = require("../models/favoritesModel");
-const FavoritesModel = require("../models/favoritesModel")
+const FavoritesModel = require("../models/favoritesModel");
 
 exports.getAll = (async(req, res) => {
     try {
@@ -7,6 +6,19 @@ exports.getAll = (async(req, res) => {
         return res.status(200).json(allFavorites);
     }
     catch (error) {
+        return res.status(500).json({
+            error: error.message
+        });
+    }
+});
+
+exports.getAllFavorites = (async (req, res) => {
+    const { isTrue } = req.params;
+    try{
+        const isFavorite = await FavoritesModel.find({favorite: isTrue});
+        return res.status(200).json(isFavorite)
+    }
+    catch(error){
         return res.status(500).json({
             error: error.message
         });
@@ -33,9 +45,7 @@ exports.addNewFavorite = async (req, res) => {
 };
 
 
-
-
-// Update boolean favorite
+// Update Change boolean
 exports.updateFavorite = (async(req, res) => {
     const { favoriteid, favorite } = req.params;
 
@@ -59,7 +69,7 @@ exports.updateFavorite = (async(req, res) => {
 exports.deleteFavorite = (async(req, res) => {
     const { favoriteid } = req.params;
     try {
-        const deletedFavorite = await favoritesModel.deleteOne({favoriteId: favoriteid});
+        const deletedFavorite = await FavoritesModel.deleteOne({favoriteId: favoriteid});
         return res.status(200).json(deletedFavorite)
     }
     catch (error) {
@@ -70,15 +80,14 @@ exports.deleteFavorite = (async(req, res) => {
 });
 
 // Delete on _id
-exports.deleteFavoriteById = (async( req, res ) => {
+exports.deleteFavoriteById = async (req, res) => {
     const { id } = req.body;
     try {
-        const deletedFavorite = await FavoritesModel.findByIdAndDelete(id);
-        return res.status(200).json(deletedFavorite);
-    }
-    catch (error) {
+        const deletedFavoriteId = await FavoritesModel.findByIdAndDelete(id);
+        return res.status(200).json(deletedFavoriteId);
+    } catch (error) {
         return res.status(500).json({
             error: error.message
         });
     }
-});
+};

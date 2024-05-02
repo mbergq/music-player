@@ -1,7 +1,7 @@
 <script setup></script>
 
 <template>
-  <div class="container p-8">
+  <div class="container p-8 border">
     <div class="overflow-x-auto">
       <table class="table">
         <!-- head -->
