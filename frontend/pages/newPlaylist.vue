@@ -1,20 +1,28 @@
 <script setup>
+const store = useDatabaseStore();
 import { ref } from "vue";
-
-
-// lägg till vilken nummer i ordningen spellistan är i listan dynamiskt här
 const editPlaylistTitle = ref("My playlist");
 const isEditing = ref(false);
 
+
+
+
 const savePlaylist = async () => {
-  isEditing.value = true;
-  console.log('post skickad');
-  // await $fetch("http://localhost:3001/api/playlists", {
-  //   method: "POST",
-  //   body: {
-  //     "playlistName" : editPlaylistTitle.value,
-  //   },
-  // });
+  console.log(editPlaylistTitle.value);
+  try {
+    const data = await $fetch("http://localhost:3001/api/playlists", {
+      method: "POST",
+      body: {
+        playlistName : editPlaylistTitle.value,
+      },
+    });
+    store.playlist = !store.playlist;
+    console.log("posted");
+  } catch (error) {
+    console.error(error);
+  } finally {
+    isEditing.value = !isEditing.value;
+  }
 };
 </script>
 
@@ -30,7 +38,7 @@ const savePlaylist = async () => {
           style="max-width: 300px; max-height: auto"
         />
 
-        <div class="pl-6 flex flex-col justify-center items-center text-white w-full">
+        <div class="pl-6 flex flex-col justify-center  text-white w-full">
           <h2 class="card-title text-2xl" v-if="!isEditing" @click="isEditing=true" >
             {{ editPlaylistTitle }}
           </h2>
@@ -47,7 +55,7 @@ const savePlaylist = async () => {
     <div
       class=" h-full"
     >
-   <!-- <DisplayTracks /> -->
+   <DisplayTracksNewPlaylist :playlistTitle="editPlaylistTitle"  />
     </div>
   </div>
 </template>

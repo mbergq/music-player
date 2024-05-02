@@ -7,9 +7,9 @@
         <NavBar />
       </div>
 
-      <div class="basis-3/4 bg-primary flex flex-col">
+      <div class="basis-3/4 bg-primary flex flex-col flex-wrap">
         <SearchBar />
-        <div class="flex-grow">
+        <div class="flex-grow overflow-y-auto" style="max-height: 1050px">
           <slot />
         </div>
       </div>
