@@ -1,11 +1,5 @@
-import { defineStore } from "pinia";
+export const useDatabaseStore = defineStore("dataBaseStore", {
+  state: () => ({ playlist: false }),
 
-export const useDatabaseStore = defineStore('store',{
-  state: () => ({
-      updatePlaylistTrigger: false;
-    }),
-
-  actions: {
-
-  },
+  actions: {},
 });
