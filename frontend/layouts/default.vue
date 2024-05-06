@@ -1,7 +1,7 @@
 <script setup></script>
 
 <template>
-  <div class="flex flex-col min-h-screen overflow-hidden">
+  <div class="flex flex-col h-screen max-h-screen overflow-hidden">
     <div class="flex flex-row flex-grow">
       <div class="basis-1/4 bg-primary">
         <NavBar />
