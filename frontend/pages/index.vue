@@ -1,11 +1,8 @@
 <script setup>
-import DisplayTracks2 from '../components/DisplayTracks2.vue';
-import DisplayCover from '../components/DisplayCover.vue';
 
-const { data: allTracks} = await useFetch('http://localhost:3001/api/tracksDetails/')
+const store = useDatabaseStore()
 
-  const tracksArray = ref(allTracks._rawValue.map(track => ({ ...track })));
-  console.log(tracksArray.value);
+store.trackInfo()
 
 </script>
 
@@ -15,7 +12,7 @@ const { data: allTracks} = await useFetch('http://localhost:3001/api/tracksDetai
       <DisplayCover />
     </div>
     <div class="h-3/5">
-      <DisplayTracks2 :tracksInfo="tracksArray" />
+      <DisplayTracks2 :tracksInfo="store.tracks" />
     </div>
   </div>
 </template>

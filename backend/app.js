@@ -13,7 +13,7 @@ app.use(cors());
 app.use(express.static("public"));
 
 // const musicRoutes = require("./routes/musicRoutes");
- const kajsaRoutes = require('./routes/kajsaRoutes');
+const kajsaRoutes = require('./routes/kajsaRoutes');
 
 const favoritesRoutes = require("./routes/favoritesRoutes");
 app.use(kajsaRoutes);

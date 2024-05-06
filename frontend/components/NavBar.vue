@@ -32,6 +32,7 @@ watch(
         class="text-white pl-6 hover:text-gray-300 active:text-gray-500"
         >Albums</nuxt-link
       >
+      <nuxt-link
         to="/allPlaylists"
         class="text-white mb-5 hover:text-gray-300 active:text-gray-500"
         >Playlists</nuxt-link

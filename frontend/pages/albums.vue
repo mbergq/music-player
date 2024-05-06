@@ -77,7 +77,7 @@ function onEmit() {
 
 </template>
 
-<style>
+<style scoped>
 #wrapper {
   max-width: 60%;
 }
