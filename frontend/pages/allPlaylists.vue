@@ -4,6 +4,13 @@ const { data: playlists, refresh } = await useFetch(
   "http://localhost:3001/api/playlists"
 );
 
+const formDate = (value) => {
+  const dateStr = value;
+  const date = new Date(dateStr);
+  const formattedDate = date.toISOString().split("T")[0];
+  return formattedDate;
+};
+
 const deletePlaylist = async (playlistId) => {
   console.log("deletePlaylist", playlistId);
   try {
@@ -47,16 +54,16 @@ const deletePlaylist = async (playlistId) => {
             </div>
           </td>
           <td>
-            {{ playlist.playlistCreatedDate }}
+            <!-- {{ formDate(playlist.playlistCreatedDate) }} -->
           </td>
           <td>
             <button class="btn btn-circle btn-outline">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                class="h-6 w-6"
+                class="h-6 w-6 hover:stroke-lime-300"
                 fill="none"
                 viewBox="0 0 24 24"
-                stroke="currentColor"
+                stroke="white"
                 @click="deletePlaylist(playlist.playlistId)"
               >
                 <path
