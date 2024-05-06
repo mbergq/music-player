@@ -12,12 +12,12 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use(express.static("public"));
 
-// const musicRoutes = require("./routes/musicRoutes");
- const kajsaRoutes = require('./routes/kajsaRoutes');
+const musicRoutes = require("./routes/musicRoutes");
+// const kajsaRoutes = require("./routes/kajsaRoutes");
 
 const favoritesRoutes = require("./routes/favoritesRoutes");
-app.use(kajsaRoutes);
-// app.use(musicRoutes);
+// app.use(kajsaRoutes);
+app.use(musicRoutes);
 app.use(favoritesRoutes);
 
 const connectionMongoDB = require("./connectionMongoDB");
