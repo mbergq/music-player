@@ -12,8 +12,13 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use(express.static("public"));
 
+<<<<<<< HEAD
+// const musicRoutes = require("./routes/musicRoutes");
+const kajsaRoutes = require('./routes/kajsaRoutes');
+=======
 const musicRoutes = require("./routes/musicRoutes");
 const chrisRoutes = require("./routes/chrisRoutes");
+>>>>>>> main
 
 const favoritesRoutes = require("./routes/favoritesRoutes");
 app.use(chrisRoutes);

@@ -1,6 +1,26 @@
 export const useDatabaseStore = defineStore("dataBaseStore", {
   state: () => ({
     playlist: false,
+<<<<<<< HEAD
+    tracks: [],
+    favorites: []
+  }),
+
+  actions: {
+    async trackInfo(){
+      const data =  await $fetch('http://localhost:3001/api/tracksDetails')
+
+      this.tracks = data;
+    },
+
+    async allFavorites(){
+      const data = await $fetch('http://localhost:3001/api/favorite/all/true')
+
+      this.favorites = data
+    }
+
+  }
+=======
     currentTrackPlaying: "",
     currentFilePlaying: "",
     currentActName: "",
@@ -16,4 +36,5 @@ export const useDatabaseStore = defineStore("dataBaseStore", {
       this.currentFilePlaying = "";
     },
   },
+>>>>>>> main
 });

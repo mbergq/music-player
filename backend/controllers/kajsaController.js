@@ -18,6 +18,21 @@ exports.getAllTrackDetails = async (req, res) => {
 exports.getAllTracks = async (req, res) => {
   let sql = "SELECT * FROM track";
 
+<<<<<<< HEAD
+    try {
+      await connectionMySQL.query(sql, (error, results, fields) => {
+        if (error) throw error;
+        res.json(results);
+      });
+    } catch (error) {
+      return res.status(500).json({
+        error: error.message,
+      });
+    }
+  };
+
+
+=======
   try {
     await connectionMySQL.query(sql, (error, results, fields) => {
       if (error) throw error;
@@ -29,3 +44,4 @@ exports.getAllTracks = async (req, res) => {
     });
   }
 };
+>>>>>>> main
