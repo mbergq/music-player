@@ -25,12 +25,24 @@ exports.getAllFavorites = (async (req, res) => {
     }
 });
 
+exports.getById = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const isTrue = await FavoritesModel.find({ favoriteId: id });
+        return res.status(200).json(isTrue);
+    } catch (error) {
+        return res.status(500).json({
+            error: error.message
+        });
+    }
+};
+
 //Add new favorite POST/CREATE
 exports.addNewFavorite = async (req, res) => {
-    const { favoriteid, favorite, description} = req.body;
+    const { favoriteId, favorite, description} = req.body;
     try {
         const newFavorite = new FavoritesModel({
-            favoriteId: favoriteid,
+            favoriteId: favoriteId,
             favorite: favorite,
             description: description,
             date: new Date()
@@ -46,24 +58,21 @@ exports.addNewFavorite = async (req, res) => {
 
 
 // Update Change boolean
-exports.updateFavorite = (async(req, res) => {
-    const { favoriteid, favorite } = req.params;
+exports.updateFavorite = async (req, res) => {
+    const { favoriteId, favorite } = req.body;
 
     try {
-        await FavoritesModel.updateOne({favoriteId: favoriteid}, {
-            favorite: favorite,
-
+        await FavoritesModel.updateOne({ favoriteId: favoriteId }, {
+            favorite: favorite
         });
-        const updateFavorite = await FavoritesModel.find({favoriteId: favoriteid});
+        const updateFavorite = await FavoritesModel.find({ favoriteId: favoriteId });
         return res.status(200).json(updateFavorite);
-    }
-    catch (error) {
+    } catch (error) {
         return res.status(500).json({
             error: error.message
         });
     }
-});
-
+};
 
 // Delete
 exports.deleteFavorite = (async(req, res) => {
