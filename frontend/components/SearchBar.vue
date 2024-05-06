@@ -1,15 +1,54 @@
 <script setup>
 import { ref } from "vue";
+const router = useRouter();
 const input = ref("");
+const store = useDatabaseStore();
 
-const { data: searchData, refresh } = await useFetch(
-  "http://localhost:3001/api/tracks"
+const { data: trackData } = await useFetch("http://localhost:3001/api/tracks");
+const { data: albumData } = await useFetch("http://localhost:3001/api/albums");
+const { data: playlistData } = await useFetch(
+  "http://localhost:3001/api/playlists"
 );
 
+const allData = ref([
+  ...trackData.value,
+  ...albumData.value,
+  ...playlistData.value,
+]);
+
+console.log(allData.value);
+
+const matchesSearch = (item, searchString) => {
+  if (item.trackName) {
+    return item.trackName.toLowerCase().includes(searchString);
+  } else if (item.albumTitle) {
+    return item.albumTitle.toLowerCase().includes(searchString);
+  } else if (item.playlistName) {
+    return item.playlistName.toLowerCase().includes(searchString);
+  }
+  return false;
+};
+
 const filteredData = () => {
-  return searchData.value.filter((track) =>
-    track.trackName.toLowerCase().includes(input.value.toLowerCase())
-  );
+  const searchString = input.value.toLowerCase();
+  return allData.value.filter((item) => matchesSearch(item, searchString));
+};
+
+const goToItem = async (item) => {
+  console.log(item);
+  if (item.playlistName) {
+    console.log("true");
+    await navigateTo({ path: `/playlist/${item.playlistName}` });
+  } else if (item.albumTitle && item.albumYear) {
+    console.log("true");
+    router.push({ path: "/test" });
+  } else if (item.trackName) {
+    console.log("true");
+    router.push({ path: "/test" });
+    store.setCurrentTrackPlaying(item.trackName, item.fileUrl, item.actName);
+    // console.log("Skicka låten till playbar".item.trackName);
+  }
+  input.value = "";
 };
 </script>
 
@@ -25,13 +64,13 @@ const filteredData = () => {
     </div>
     <div
       class="btn m-2 position-absolute bg-lime-300 text-black border-0"
-      v-for="track in filteredData()"
-      :key="track"
+      v-for="item in filteredData()"
+      :key="item.id"
       v-if="input.length > 0"
     >
-      <p>
-        {{ track.trackName }}
-      </p>
+      <nuxt-link @click="goToItem(item)">
+        {{ item.trackName || item.albumTitle || item.playlistName }}
+      </nuxt-link>
     </div>
     <div class="pl-8 text-white" v-if="input && !filteredData().length">
       <p>Not found</p>

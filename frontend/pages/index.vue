@@ -1,12 +1,17 @@
 <script setup>
-import DisplayTracks2 from '../components/DisplayTracks2.vue';
-import DisplayCover from '../components/DisplayCover.vue';
+import DisplayTracks2 from "../components/DisplayTracks2.vue";
+import DisplayCover from "../components/DisplayCover.vue";
 
 // const { data: allTracks} = await useFetch('http://localhost:3001/api/tracksDetails/')
+<<<<<<< HEAD
+=======
 
   // const tracksArray = ref(allTracks._rawValue.map(track => ({ ...track }));
   // console.log(tracksArray.value);
+>>>>>>> main
 
+//   const tracksArray = ref(allTracks._rawValue.map(track => ({ ...track })));
+//   console.log(tracksArray.value);
 </script>
 
 <template>
