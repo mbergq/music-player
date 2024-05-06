@@ -1,7 +1,7 @@
 const connectionMySQL = require("../connectionMySQL");
 
 exports.getAllTracks = async (req, res) => {
-  let sql = "SELECT * FROM getMusic";
+  let sql = "SELECT * FROM getTrackData";
 
   try {
     await connectionMySQL.query(sql, (error, results, fields) => {
@@ -21,6 +21,22 @@ exports.getAllPlaylists = async (req, res) => {
   try {
     await connectionMySQL.query(sql, (error, results, fields) => {
       if (error) throw error;
+      res.json(results);
+    });
+  } catch (error) {
+    return res.status(500).json({
+      error: error.message,
+    });
+  }
+};
+
+exports.getAllAlbums = async (req, res) => {
+  let sql = "SELECT * FROM album";
+
+  try {
+    await connectionMySQL.query(sql, (error, results, fields) => {
+      if (error) throw error;
+      console.log(results);
       res.json(results);
     });
   } catch (error) {
@@ -116,9 +132,6 @@ exports.deletePlaylist = async (req, res) => {
 exports.updatePlaylistName = (req, res) => {
   const { _playlistName } = req.params;
   const { playlistName } = req.body;
-
-  console.log(playlistName);
-  console.log(_playlistName);
 
   let sql = `UPDATE playlist SET playlist.playlistName = ? WHERE playlist.playlistName = ?`;
 

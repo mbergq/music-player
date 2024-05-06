@@ -28,15 +28,32 @@ const updatePlaylistName = async () => {
     isEditing.value = !isEditing.value;
   }
 };
+
+
+const toggleFavorites = async (trackId) => {
+  try {
+  const currentData = await $fetch(`http://localhost:3001/api/favorite/${trackId}`);
+    const currentIsFavorite = currentData.favorite;
+
+    const data = await $fetch(`http://localhost:3001/api/favorite/${trackId}`, {
+      method: "PUT",
+      body: {
+        favorite : !currentIsFavorite,
+      },
+    });
+  } catch (error) {
+    console.error(error);
+  }
+};
 </script>
 
 <template>
-  <div class="card lg:card-side shadow-xl pl-9 pt-9 ">
+  <div class="shadow-xl pt-9 flex pl-9 ">
     <figure>
       <img
         src="https://daisyui.com/images/stock/photo-1494232410401-ad00d5433cfa.jpg"
         alt="Album"
-        style="max-width: 300px; max-height: auto"
+        style="width: 100%; height: auto; object-fit: cover;"
       />
     </figure>
     <div class="pl-6 flex flex-col justify-center text-white">

@@ -15,32 +15,34 @@ watch(
 <template>
   <!-- använd invisble för att dölja menyn -->
   <div class="container h-full flex flex-col bg-primary pl-6">
-    <h1 class="text-2xl text-lime-300 uppercase pt-6">::music player::</h1>
+    <h1 class="text-2xl text-white uppercase pt-6">.:music player:.</h1>
     <ul class="menu text-xl mt-8">
       <nuxt-link
         to="/"
-        class="text-white mb-5 hover:text-gray-300 active:text-gray-500"
+        class="text-white mb-5 hover:text-lime-300 active:text-gray-500"
         >All tracks</nuxt-link
       >
       <nuxt-link
         to="/favorites"
-        class="text-white mb-5 hover:text-gray-300 active:text-gray-500"
+        class="text-white mb-5 hover:text-lime-300 active:text-gray-500"
         >Favorites</nuxt-link
       >
       <nuxt-link
         to="/albums"
-        class="text-white pl-6 hover:text-gray-300 active:text-gray-500"
+        class="text-white mb-5 hover:text-lime-300 active:text-gray-500"
         >Albums</nuxt-link
       >
+      <nuxt-link
         to="/allPlaylists"
-        class="text-white mb-5 hover:text-gray-300 active:text-gray-500"
+        class="text-white mb-5 hover:text-lime-300 active:text-gray-500"
         >Playlists</nuxt-link
       >
     </ul>
 
-    <!-- <div class="divider divider-info"></div> -->
-    <div class="container flex flex-col h-full justify-center">
-      <div class="flex flex-row w-full items-center gap-3">
+    <div class="container flex flex-col h-full">
+      <div
+        class="flex flex-row w-full items-center pt-9 gap-3 border-b border-zinc-500 mb-4"
+      >
         <!-- <div
           class="container flex flex-row w-full items-center justify-between pr-8"
           > -->
@@ -67,9 +69,7 @@ watch(
           </nuxt-link>
         </div>
       </div>
-      <div class="flex flex-col w-full">
-        <div class="divider divider-base-200"></div>
-      </div>
+
       <ul class="menu w-fit text-zinc-300 p-0">
         <li v-for="(playlist, index) in playlists" :key="index">
           <nuxt-link
