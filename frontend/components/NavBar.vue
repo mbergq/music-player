@@ -28,8 +28,13 @@ watch(
         >Favorites</nuxt-link
       >
       <nuxt-link
+<<<<<<< HEAD
         to="/albums"
         class="text-white mb-5 hover:text-lime-300 active:text-gray-500"
+=======
+        to="/allAlbums"
+        class="text-white mb-5 hover:text-gray-300 active:text-gray-500"
+>>>>>>> main
         >Albums</nuxt-link
       >
       <nuxt-link
