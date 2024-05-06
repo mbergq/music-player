@@ -69,7 +69,7 @@ exports.createPlaylist = async (req, res) => {
 exports.getPlaylist = async (req, res) => {
   const { playlistName } = req.params;
 
-  let sql = `CALL get_playlistTracks(?)`;
+  let sql = `CALL get_playlistData(?)`;
 
   try {
     await connectionMySQL.query(

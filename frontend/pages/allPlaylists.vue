@@ -42,7 +42,7 @@ const deletePlaylist = async (playlistId) => {
         >
           <td>
             <div class="flex items-center text-white gap-5 mb-5">
-              <img src="https://placehold.co/100x100" alt="playlist cover" />
+              <NuxtImg src="/discovery_art.jpg" sizes="sm:50vw md:200px" />
               <nuxt-link
                 :to="`/playlist/${playlist.playlistName}`"
                 class="pl-2 capitalize hover:text-white active:text-white hover:scale-110 cursor-pointer p-0"
@@ -54,7 +54,7 @@ const deletePlaylist = async (playlistId) => {
             </div>
           </td>
           <td>
-            <!-- {{ formDate(playlist.playlistCreatedDate) }} -->
+            {{ formDate(playlist.playlistCreatedDate) }}
           </td>
           <td>
             <button class="btn btn-circle btn-outline">

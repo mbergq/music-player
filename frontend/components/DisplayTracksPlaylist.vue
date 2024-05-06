@@ -6,11 +6,10 @@ const props = defineProps({
 
 console.log(props.playlist);
 
-const playlistTracks = props.playlist
-  .flat()
-  .filter((track) => track && Object.keys(track).length > 0);
+const playlistTracks = props.playlist.flat();
+const playlistData = playlistTracks.slice(0, -1);
 
-console.log(playlistTracks);
+console.log(playlistData);
 
 const convertToMinutes = (seconds) => {
   const minutes = Math.floor(seconds / 60);
@@ -39,7 +38,7 @@ const convertToMinutes = (seconds) => {
           <!-- row 1 -->
           <tr
             class="group text-white border-0 hover:bg-zinc-700 hover:bg-opacity-50"
-            v-for="(track, index) in playlistTracks"
+            v-for="(track, index) in playlistData"
             :key="index"
           >
             <td>
@@ -101,7 +100,7 @@ const convertToMinutes = (seconds) => {
             </td>
             <td>{{ convertToMinutes(track.trackLength) }}</td>
             <td>
-              <div class="dropdown">
+              <div class="dropdown dropdown-end">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="1.5em"
