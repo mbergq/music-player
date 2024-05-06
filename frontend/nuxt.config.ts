@@ -6,7 +6,7 @@ export default defineNuxtConfig({
     "nuxt-icon",
     "@pinia/nuxt",
     "@vueuse/nuxt",
-    "@nuxt/image"
+    "@nuxt/image",
   ],
   css: [
     "~/assets/css/main.css", // Vägen till din globala CSS-fil

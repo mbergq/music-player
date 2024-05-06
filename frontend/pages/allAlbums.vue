@@ -1,5 +1,13 @@
 <script setup>
-const { data: albums } = await useFetch("http://localhost:3001/api/albums");
+import { onMounted } from "vue";
+
+const { data: albums, refresh } = await useFetch(
+  "http://localhost:3001/api/albums"
+);
+
+onMounted(() => {
+  refresh();
+});
 </script>
 
 <template>
@@ -14,11 +22,6 @@ const { data: albums } = await useFetch("http://localhost:3001/api/albums");
         >
           <td>
             <div class="flex items-center text-white gap-5 mb-5">
-              <!-- <img
-                :src="`${album.albumCoverUrl}`"
-                alt="playlist cover"
-                style="max-width: 300px; height: auto"
-              /> -->
               <NuxtImg
                 :src="`${album.albumCoverUrl}`"
                 sizes="sm:50vw md:200px"
@@ -30,6 +33,7 @@ const { data: albums } = await useFetch("http://localhost:3001/api/albums");
                 <p class="text-base">
                   {{ album.albumTitle }}
                 </p>
+                <p>{{ album.albumCoverUrl }}</p>
               </nuxt-link>
             </div>
           </td>
