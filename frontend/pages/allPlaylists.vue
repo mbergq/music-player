@@ -54,7 +54,7 @@ const deletePlaylist = async (playlistId) => {
             </div>
           </td>
           <td>
-            {{ formDate(playlist.playlistCreatedDate) }}
+            <!-- {{ formDate(playlist.playlistCreatedDate) }} -->
           </td>
           <td>
             <button class="btn btn-circle btn-outline">
