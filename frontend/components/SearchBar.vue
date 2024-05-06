@@ -10,6 +10,8 @@ const { data: playlistData } = await useFetch(
   "http://localhost:3001/api/playlists"
 );
 
+console.log(trackData.value);
+
 const allData = ref([
   ...trackData.value,
   ...albumData.value,
@@ -37,15 +39,19 @@ const filteredData = () => {
 const goToItem = async (item) => {
   console.log(item);
   if (item.playlistName) {
-    console.log("true");
+    console.log("klickat på ett spellista");
     await navigateTo({ path: `/playlist/${item.playlistName}` });
   } else if (item.albumTitle && item.albumYear) {
-    console.log("true");
+    console.log("klickat på ett album");
     router.push({ path: "/test" });
   } else if (item.trackName) {
-    console.log("true");
-    router.push({ path: "/test" });
-    store.setCurrentTrackPlaying(item.trackName, item.fileUrl, item.actName);
+    console.log("Klickat på en låt");
+    store.setCurrentTrackPlaying(
+      item.trackName,
+      item.fileUrl,
+      item.actName,
+      item.albumTitle
+    );
     // console.log("Skicka låten till playbar".item.trackName);
   }
   input.value = "";

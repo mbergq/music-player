@@ -5,6 +5,8 @@ const id = ref(route.params.id);
 const { data: playlist } = await useFetch(
   `http://localhost:3001/api/playlist/${id.value}`
 );
+
+console.log(playlist.value);
 </script>
 
 <template>

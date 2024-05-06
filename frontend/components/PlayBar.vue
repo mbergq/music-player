@@ -59,9 +59,16 @@ const play = () => {
   <div
     class="realtive flex flex-row items-center justify-center min-w-screen h-28 bg-secondary text-white"
   >
-    <p class="mb-1 text-pink-500 absolute left-6" v-if="showTitleIfPlaying">
-      {{ store.currentActName + " - " + store.currentTrackPlaying }}
-    </p>
+    <div class="flex items-center absolute left-9 gap-5">
+      <p class="mb-1 text-pink-500" v-if="showTitleIfPlaying">
+        {{ store.currentActName + " - " + store.currentTrackPlaying }}
+      </p>
+      <img
+        :src="`${store.currentCoverUrl}`"
+        style="max-width: 100px; height: auto"
+      />
+    </div>
+
     <div class="flex flex-row items-center justify-center">
       <svg
         xmlns="http://www.w3.org/2000/svg"
