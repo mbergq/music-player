@@ -3,6 +3,12 @@ const { data: allTracks } = await useFetch("http://localhost:3001/api/tracks");
 
 const tracksArray = ref(allTracks._rawValue.map((track) => ({ ...track })));
 console.log(tracksArray.value);
+
+const store = useDatabaseStore()
+
+store.trackInfo()
+
+
 </script>
 
 <template>
@@ -11,7 +17,11 @@ console.log(tracksArray.value);
       <DisplayCover />
     </div>
     <div class="h-3/5">
+
       <DisplayTracks2 :tracksInfo="tracksArray" />
+
+      <DisplayTracks2 :tracksInfo="store.tracks" />
+
     </div>
   </div>
 </template>

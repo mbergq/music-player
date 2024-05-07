@@ -8,11 +8,11 @@
               <th>Track</th>
               <th>Artist</th>
               <th>Album</th>
-              <th>Tid</th>
-              <th>Favorit</th>
+              <th>Time</th>
+              <th>Favorite</th>
             </tr>
           </thead>
-          <tbody style="background-color: red;" class="max-h-20 ">
+          <tbody class="max-h-20 ">
             <tr v-for="info in tracksInfo" :key="info.trackId" >
               <td>
                 <div class="track-info">
@@ -41,7 +41,7 @@
                 <div class="flex justify-center align-center" >
                     <svg
                     class="h-5 text-white cursor-pointer"
-                    @click="toggleFavorite(info.trackId)"
+                    @click="() => addToFavorites(info.trackId)"
                     fill="none" viewBox="0 0 24 24" stroke="currentColor"
                   >
                     <path
@@ -62,11 +62,11 @@
 
   <script setup>
   import { defineProps } from 'vue';
+  const store = useDatabaseStore();
 
   const props = defineProps({
     tracksInfo: {
       type: Array,
-      // required: true
     }
   });
 
@@ -76,12 +76,41 @@
     return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`
   }
 
-  const toggleFavorite = (trackId) => {
-    info.favorite = !info.favorite;
-    alert(trackId)
+const addToFavorites = async (trackId) =>{
+  try{
+      const data = await $fetch(`http://localhost:3001/api/favorite/${trackId}`)
+        console.log(trackId)
+       console.log(data[0].favorite)
 
-  };
-  </script>
+       updateFavorite(trackId, data[0].favorite)
+
+  }
+  catch (error){
+    console.error(error)
+  }
+}
+
+async function updateFavorite(id, bool) {
+  try {
+    const response = await $fetch(`http://localhost:3001/api/favorite/${id}/${bool}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        favoriteId: id,
+        favorite: !bool
+      })
+    });
+    console.log('PUT response', response);
+  } catch (error) {
+    console.error(error);
+  }
+
+  store.allFavorites();
+}
+
+</script>
 
   <style scoped>
   .track-info {
@@ -97,5 +126,10 @@
 
   svg{
     font-size: 12px;
+  }
+
+  button{
+    widows: 200px;
+    background-color: white;
   }
   </style>
