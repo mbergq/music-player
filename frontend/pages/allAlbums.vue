@@ -22,9 +22,9 @@ onMounted(() => {
         >
           <td>
             <div class="flex items-center text-white gap-5 mb-5">
-              <NuxtImg
+              <img
                 :src="`${album.albumCoverUrl}`"
-                sizes="sm:50vw md:200px"
+                class="w-40 h-40 rounded-lg object-cover"
               />
               <nuxt-link
                 :to="`/album/${album.albumTitle}`"
@@ -33,7 +33,6 @@ onMounted(() => {
                 <p class="text-base">
                   {{ album.albumTitle }}
                 </p>
-                <p>{{ album.albumCoverUrl }}</p>
               </nuxt-link>
             </div>
           </td>

@@ -7,5 +7,5 @@ const { data: album } = await useFetch(
 );
 </script>
 <template>
-  <DisplayAlbumTracks :album-name="album"></DisplayAlbumTracks>
+  <DisplayAlbumTracks :album-name="id" :album-data="album"></DisplayAlbumTracks>
 </template>
