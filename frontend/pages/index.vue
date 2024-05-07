@@ -1,10 +1,8 @@
 <script setup>
+const { data: allTracks } = await useFetch("http://localhost:3001/api/tracks");
 
-
-// const { data: allTracks} = await useFetch('http://localhost:3001/api/tracksDetails/')
-
-//   const tracksArray = ref(allTracks._rawValue.map(track => ({ ...track })));
-//   console.log(tracksArray.value);
+const tracksArray = ref(allTracks._rawValue.map((track) => ({ ...track })));
+console.log(tracksArray.value);
 </script>
 
 <template>
@@ -13,7 +11,7 @@
       <DisplayCover />
     </div>
     <div class="h-3/5">
-      <!-- <DisplayTracks2 :tracksInfo="tracksArray" /> -->
+      <DisplayTracks2 :tracksInfo="tracksArray" />
     </div>
   </div>
 </template>

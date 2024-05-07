@@ -42,7 +42,10 @@ const deletePlaylist = async (playlistId) => {
         >
           <td>
             <div class="flex items-center text-white gap-5 mb-5">
-              <NuxtImg src="/discovery_art.jpg" sizes="sm:50vw md:200px" />
+              <img
+                src="/discovery_art.jpg"
+                class="w-40 h-40 rounded-lg object-cover"
+              />
               <nuxt-link
                 :to="`/playlist/${playlist.playlistName}`"
                 class="pl-2 capitalize hover:text-white active:text-white hover:scale-110 cursor-pointer p-0"

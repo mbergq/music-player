@@ -88,6 +88,24 @@ exports.getPlaylist = async (req, res) => {
   }
 };
 
+exports.getAlbum = async (req, res) => {
+  const { albumTitle } = req.params;
+
+  let sql = `CALL get_albumData(?)`;
+
+  try {
+    await connectionMySQL.query(sql, [albumTitle], (error, results, fields) => {
+      if (error) throw error;
+      res.json(results);
+      console.log(results);
+    });
+  } catch (error) {
+    return res.status(500).json({
+      error: error.message,
+    });
+  }
+};
+
 // with prepered statement
 exports.deletePlaylist = async (req, res) => {
   const { playlistId } = req.body;
