@@ -5,8 +5,6 @@ const editPlaylistTitle = ref("My playlist");
 const isEditing = ref(false);
 
 
-
-
 const savePlaylist = async () => {
   console.log(editPlaylistTitle.value);
   try {
@@ -50,7 +48,6 @@ const savePlaylist = async () => {
     <div
       class="text-center grow w-full h-40"
     >
-<!-- Här kan du lägga till låtar till din spellista -->
     </div>
     <div
       class=" h-full"

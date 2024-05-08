@@ -1,13 +1,7 @@
 <script setup>
 const props = defineProps({
-  albumName: String,
   albumData: Object,
 });
-console.log(props.albumName, props.albumData);
-
-// const { data: albumtracks } = await useFetch(
-//   "http://localhost:3001/api/albumtracks"
-// );
 
 const album = props.albumData.flat();
 const albumTracks = album.slice(0, -1);
@@ -81,11 +75,7 @@ const convertToMinutes = (seconds) => {
                 </div>
               </label>
             </td>
-            <!-- <td>
-        <div class="w-16 h-16">
-          <img src="https://placehold.co/600x400" alt="track cover" />
-        </div>
-      </td> -->
+
             <td>
               <div class="flex items-center gap-3 text-white">
                 <div>
@@ -95,9 +85,7 @@ const convertToMinutes = (seconds) => {
             </td>
             <td>{{ track.actName }}</td>
             <td>
-              <nuxt-link class="hover:scale-125 font-semibold" to="/test">{{
-                track.albumTitle
-              }}</nuxt-link>
+              {{ track.albumTitle }}
             </td>
             <td>{{ convertToMinutes(track.trackLength) }}</td>
             <td>

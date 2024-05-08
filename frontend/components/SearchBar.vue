@@ -1,6 +1,5 @@
 <script setup>
 import { ref } from "vue";
-const router = useRouter();
 const input = ref("");
 const store = useDatabaseStore();
 
@@ -10,15 +9,9 @@ const { data: playlistData } = await useFetch(
   "http://localhost:3001/api/playlists"
 );
 
-console.log(trackData.value);
-
-const allData = ref([
-  ...trackData.value,
-  ...albumData.value,
-  ...playlistData.value,
-]);
-
-console.log(allData.value);
+const tracks = ref([...trackData.value]);
+const albums = ref([...albumData.value]);
+const playlists = ref([...playlistData.value]);
 
 const matchesSearch = (item, searchString) => {
   if (item.trackName) {
@@ -31,9 +24,19 @@ const matchesSearch = (item, searchString) => {
   return false;
 };
 
-const filteredData = () => {
+const filteredTracks = () => {
   const searchString = input.value.toLowerCase();
-  return allData.value.filter((item) => matchesSearch(item, searchString));
+  return tracks.value.filter((item) => matchesSearch(item, searchString));
+};
+
+const filteredAlbums = () => {
+  const searchString = input.value.toLowerCase();
+  return albums.value.filter((item) => matchesSearch(item, searchString));
+};
+
+const filteredPlaylists = () => {
+  const searchString = input.value.toLowerCase();
+  return playlists.value.filter((item) => matchesSearch(item, searchString));
 };
 
 const goToItem = async (item) => {
@@ -43,7 +46,6 @@ const goToItem = async (item) => {
     await navigateTo({ path: `/playlist/${item.playlistName}` });
   } else if (item.albumTitle && item.albumYear) {
     console.log("klickat på ett album");
-    router.push({ path: "/test" });
   } else if (item.trackName) {
     console.log("Klickat på en låt");
     store.setCurrentTrackPlaying(
@@ -52,7 +54,6 @@ const goToItem = async (item) => {
       item.actName,
       item.albumTitle
     );
-    // console.log("Skicka låten till playbar".item.trackName);
   }
   input.value = "";
 };
@@ -68,18 +69,58 @@ const goToItem = async (item) => {
         class="input bg-transparent w-80 rounded-full opacity-70 border-2 border-white border-opacity-70 text-white placeholder-white placeholder-opacity-70 focus:border-primary focus:border-opacity-70 focus:border-2 focus:border-white focus:border-opacity-70 focus:bg-transparent focus:placeholder-white focus:placeholder-opacity-70 focus:text-white focus:opacity-70"
       />
     </div>
-    <div
-      class="btn m-2 position-absolute bg-lime-300 text-black border-0"
-      v-for="item in filteredData()"
-      :key="item.id"
-      v-if="input.length > 0"
-    >
-      <nuxt-link @click="goToItem(item)">
-        {{ item.trackName || item.albumTitle || item.playlistName }}
-      </nuxt-link>
-    </div>
-    <div class="pl-8 text-white" v-if="input && !filteredData().length">
-      <p>Not found</p>
+    <div class="bg-black" v-if="input.length > 0">
+      <h1
+        class="text-pink-300 bg-black text-2xl w-40 border-b-4 border-gray-50"
+      >
+        Tracks
+      </h1>
+      <div
+        class="btn m-2 position-absolute bg-lime-300 text-black border-0"
+        v-for="item in filteredTracks()"
+        :key="item.id"
+      >
+        <nuxt-link @click="goToItem(item)">
+          {{ item.trackName }}
+        </nuxt-link>
+      </div>
+      <div class="pl-8 text-white" v-if="input && !filteredTracks().length">
+        <p class="text-white">Not found</p>
+      </div>
+      <h1
+        class="text-pink-300 bg-black text-2xl w-40 border-b-4 border-gray-50"
+      >
+        Albums
+      </h1>
+      <div
+        class="btn m-2 position-absolute bg-lime-300 text-black border-0"
+        v-for="item in filteredAlbums()"
+        :key="item.id"
+      >
+        <nuxt-link @click="goToItem(item)">
+          {{ item.albumTitle }}
+        </nuxt-link>
+      </div>
+      <div class="pl-8 text-white" v-if="input && !filteredAlbums().length">
+        <p class="text-white">Not found</p>
+      </div>
+      <h1
+        class="text-pink-300 bg-black text-2xl w-40 border-b-4 border-gray-50"
+      >
+        Playlists
+      </h1>
+      <div
+        class="btn m-2 position-absolute bg-lime-300 text-black border-0"
+        v-for="item in filteredPlaylists()"
+        :key="item.id"
+      >
+        <nuxt-link @click="goToItem(item)">
+          {{ item.playlistName }}
+        </nuxt-link>
+      </div>
+      <div class="pl-8 text-white" v-if="input && !filteredPlaylists().length">
+        <p class="text-white">Not found</p>
+      </div>
     </div>
   </div>
 </template>

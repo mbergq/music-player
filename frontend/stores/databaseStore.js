@@ -13,15 +13,8 @@ export const useDatabaseStore = defineStore("dataBaseStore", {
     async findAlbumCoverUrl(url) {
       console.log("findAlbumCoverUrl", url);
       const data = await $fetch("http://localhost:3001/api/albums");
-      // console.log("data", data);
       const album = data.find((album) => album.albumTitle === url);
-      // console.log("album", album);
-      // console.log("album.albumCoverUrl", album.albumCoverUrl);
       this.currentCoverUrl = album.albumCoverUrl;
-    },
-
-    setCurrentTrackPlaying(track, file, actName, coverUrl) {
-      console.log("setCurrentTrackPlaying", track, file, actName, coverUrl);
     },
 
     async trackInfo() {
@@ -35,7 +28,8 @@ export const useDatabaseStore = defineStore("dataBaseStore", {
 
       this.favorites = data;
     },
-    setCurrentTrackPlaying(track, file, actName) {
+    setCurrentTrackPlaying(track, file, actName, coverUrl) {
+      console.log("setCurrentTrackPlaying", track, file, actName, coverUrl);
       this.currentTrackPlaying = track;
       this.currentFilePlaying = file;
       this.currentActName = actName;

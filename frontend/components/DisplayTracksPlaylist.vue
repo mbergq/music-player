@@ -94,9 +94,11 @@ const convertToMinutes = (seconds) => {
             </td>
             <td>{{ track.actName }}</td>
             <td>
-              <nuxt-link class="hover:scale-125 font-semibold" to="/test">{{
-                track.albumTitle
-              }}</nuxt-link>
+              <nuxt-link
+                class="hover:scale-125 font-semibold"
+                :to="`/album/${track.albumTitle}`"
+                >{{ track.albumTitle }}</nuxt-link
+              >
             </td>
             <td>{{ convertToMinutes(track.trackLength) }}</td>
             <td>

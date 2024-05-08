@@ -20,7 +20,7 @@ watch(
       <nuxt-link
         to="/"
         class="text-white mb-5 hover:text-lime-300 active:text-gray-500"
-        >All tracks</nuxt-link
+        >Tracks</nuxt-link
       >
       <nuxt-link
         to="/favorites"
@@ -43,9 +43,6 @@ watch(
       <div
         class="flex flex-row w-full items-center pt-9 gap-3 border-b border-zinc-500 mb-4"
       >
-        <!-- <div
-          class="container flex flex-row w-full items-center justify-between pr-8"
-          > -->
         <h1 class="text-white text-2xl">My playlists</h1>
 
         <div class="menu">
