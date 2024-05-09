@@ -59,11 +59,11 @@
                 </div>
               </label>
             </td>
-            <td>
+            <!-- <td>
               <div class="w-16 h-16">
                 <img :src="info.albumCoverUrl" alt="track cover" />
               </div>
-            </td>
+            </td> -->
 
              <td>
               <div class="flex items-center gap-3 text-white">
@@ -82,9 +82,9 @@
             </td>
             <td>{{ convertToMinutes(info.trackLength) }}</td>
             <td>
-              <button class="btn btn-circle btn-outline">
+              <!-- <button class="btn btn-circle btn-outline">
                 <svg
-                class="h-5 text-white cursor-pointer text-lime-300"
+                class="h-5 text-white cursor-pointer "
                 @click="() => addToFavorites(info.trackId)"
                 fill="none"
                 viewBox="0 0 24 24"
@@ -97,9 +97,14 @@
                   d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
                 />
               </svg>
-              </button>
-              <!-- <svg
-                class="h-5 text-white cursor-pointer"
+              </button> -->
+              <label class="swap swap-flip text-9xl">
+
+  <!-- this hidden checkbox controls the state -->
+              <input type="checkbox" />
+
+              <div class="swap-on">    <svg
+                class="h-5 text-white cursor-pointer text-lime-300"
                 @click="() => addToFavorites(info.trackId)"
                 fill="none"
                 viewBox="0 0 24 24"
@@ -111,7 +116,23 @@
                   stroke-width="1.5"
                   d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
                 />
-              </svg> -->
+              </svg></div>
+              <div class="swap-off">
+                <svg
+                class="h-5  cursor-pointer text-white"
+                @click="() => addToFavorites(info.trackId)"
+                fill="lime-300"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1.5"
+                  d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                />
+              </svg></div>
+            </label>
             </td>
             <td>
                <div class="dropdown dropdown-end">
@@ -170,7 +191,6 @@ async function addToFavorites(Id){
     const data = await $fetch(`http://localhost:3001/api/favorite/one/${Id}`);
     if (data && data.length > 0) {
       console.log("innan boolen har ändrats: " + data[0].favorite);
-      console.log( Id, data[0].favorite)
       updateFavorite(Id, data[0].favorite);
     } else {
       console.log("Data is empty or undefined");
@@ -196,10 +216,11 @@ async function updateFavorite(id, bool) {
           }
         );
         console.log("PUT response", response);
+
       } catch (error) {
         console.error(error);
       }
-
+      console.log(!bool)
       store.allFavorites();
 
     }

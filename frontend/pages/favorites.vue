@@ -58,7 +58,14 @@ async function updateFavorite(id, bool) {
   <div class="flex flex-col h-full">
     <div class="h-1/7"></div>
     <div class="h-3/5">
-      <DisplayTracks2 :tracks-info="matchedTracksInfo" @addToFavorites="addToFavorites" />
+      <DisplayTracks2 class="component" :tracks-info="matchedTracksInfo" @addToFavorites="addToFavorites" />
     </div>
   </div>
 </template>
+
+<style scoped>
+
+svg{
+  color:lime
+}
+ </style>
