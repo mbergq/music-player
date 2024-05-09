@@ -28,14 +28,19 @@ exports.getAllFavorites = (async (req, res) => {
 exports.getById = async (req, res) => {
     const { id } = req.params;
     try {
-        const isTrue = await FavoritesModel.find({ favoriteId: id });
-        return res.status(200).json(isTrue);
+        const favorite = await FavoritesModel.find({ favoriteId: id });
+        if (!favorite || favorite.length === 0) {
+            return res.status(404).json({ message: "Favorite not found" });
+        }
+        return res.status(200).json(favorite);
     } catch (error) {
+        console.error("Error fetching favorite:", error);
         return res.status(500).json({
-            error: error.message
+            error: "Internal server error"
         });
     }
 };
+
 
 //Add new favorite POST/CREATE
 exports.addNewFavorite = async (req, res) => {

@@ -59,19 +59,19 @@
                 </div>
               </label>
             </td>
-            <!-- <td>
+            <td>
               <div class="w-16 h-16">
                 <img :src="info.albumCoverUrl" alt="track cover" />
               </div>
-            </td> -->
+            </td>
 
-            <td>
+             <td>
               <div class="flex items-center gap-3 text-white">
                 <div>
                   <div class="font-bold">{{ info.trackName }}</div>
                 </div>
               </div>
-            </td>
+             </td>
             <td>{{ info.actName }}</td>
             <td>
               <nuxt-link
@@ -82,8 +82,9 @@
             </td>
             <td>{{ convertToMinutes(info.trackLength) }}</td>
             <td>
-              <svg
-                class="h-5 text-white cursor-pointer"
+              <button class="btn btn-circle btn-outline">
+                <svg
+                class="h-5 text-white cursor-pointer text-lime-300"
                 @click="() => addToFavorites(info.trackId)"
                 fill="none"
                 viewBox="0 0 24 24"
@@ -96,9 +97,24 @@
                   d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
                 />
               </svg>
+              </button>
+              <!-- <svg
+                class="h-5 text-white cursor-pointer"
+                @click="() => addToFavorites(info.trackId)"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1.5"
+                  d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                />
+              </svg> -->
             </td>
             <td>
-              <div class="dropdown dropdown-end">
+               <div class="dropdown dropdown-end">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="1.5em"
@@ -136,6 +152,7 @@
 import { defineProps } from "vue";
 const store = useDatabaseStore();
 
+
 const props = defineProps({
   tracksInfo: {
     type: Array,
@@ -148,40 +165,45 @@ const convertToMinutes = (seconds) => {
   return `${minutes}:${remainingSeconds < 10 ? "0" : ""}${remainingSeconds}`;
 };
 
-const addToFavorites = async (trackId) => {
+async function addToFavorites(Id){
   try {
-    const data = await $fetch(`http://localhost:3001/api/favorite/${trackId}`);
-    console.log(trackId);
-    console.log(data[0].favorite);
-
-    updateFavorite(trackId, data[0].favorite);
+    const data = await $fetch(`http://localhost:3001/api/favorite/one/${Id}`);
+    if (data && data.length > 0) {
+      console.log("innan boolen har ändrats: " + data[0].favorite);
+      console.log( Id, data[0].favorite)
+      updateFavorite(Id, data[0].favorite);
+    } else {
+      console.log("Data is empty or undefined");
+    }
   } catch (error) {
     console.error(error);
   }
-};
+}
 
 async function updateFavorite(id, bool) {
-  try {
-    const response = await $fetch(
-      `http://localhost:3001/api/favorite/${id}/${bool}`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          favoriteId: id,
-          favorite: !bool,
-        }),
+      try {
+        const response = await $fetch(
+          `http://localhost:3001/api/favorite/${id}/${bool}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              favoriteId: id,
+              favorite: !bool,
+            }),
+          }
+        );
+        console.log("PUT response", response);
+      } catch (error) {
+        console.error(error);
       }
-    );
-    console.log("PUT response", response);
-  } catch (error) {
-    console.error(error);
-  }
 
-  store.allFavorites();
-}
+      store.allFavorites();
+
+    }
+
 </script>
 
 <style scoped>

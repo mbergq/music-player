@@ -24,7 +24,7 @@ const kajsaRoutes = require("./routes/kajsaRoutes");
 
 app.use(kajsaRoutes);
 
-const connectionMongoDB = require("./config/connectionMongoDB");
+const connectionMongoDB = require("./connectionMongoDB");
 connectionMongoDB();
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
