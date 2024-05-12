@@ -1,6 +1,8 @@
 <script setup>
 const store = useDatabaseStore();
 store.trackInfo();
+
+
 </script>
 
 <template>

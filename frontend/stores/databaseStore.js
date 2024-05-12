@@ -10,18 +10,14 @@ export const useDatabaseStore = defineStore("dataBaseStore", {
   }),
 
   actions: {
-    async addToFavorites(trackId) {
-      try {
-        const data = await $fetch(`http://localhost:3001/api/favorite/one/${trackId}`);
-        console.log(trackId);
-        console.log(data[0].favorite);
-        // Uppdatera favorites state i storen
-        // Uppdatera efter behov andra relevanta tillstånd
-        this.updateFavorite(trackId, data[0].favorite);
-      } catch (error) {
-        console.error(error);
-      }
-    },
+    // async addToFavorites(trackId) {
+    //   try {
+    //     const data = await $fetch(`http://localhost:3001/api/favorite/one/${trackId}`);
+    //     this.updateFavorite(trackId, data[0].favorite);
+    //   } catch (error) {
+    //     console.error(error);
+    //   }
+    // },
     async findAlbumCoverUrl(url) {
       console.log("findAlbumCoverUrl", url);
       const data = await $fetch("http://localhost:3001/api/albums");
